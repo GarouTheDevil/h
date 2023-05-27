@@ -149,26 +149,6 @@ async def link_handler(bot, message):
         await mess.edit_text(f"**Bypassed URL** : {short_link} \n\n ©cc: {message.from_user.mention}",disable_web_page_preview=True)
     except Exception as e:
         await mess.edit_text(f"**Error** : {e}")
-  elif 'droplink.co' in link:
-     try:
-        short_link = await droplink(link)
-     #   mess = await message.reply_text("**Bypassing...⏳**",quote=True)
-        await mess.edit_text(f"**Bypassed URL** : {short_link} \n\n ©cc: {message.from_user.mention}",disable_web_page_preview=True)
-     except Exception as e:
-        await mess.edit_text(f"**Error** : {e}")
-  elif 'rocklinks.net' in link:
-     try:
-        short_link = await rocklink_bypass(link)
-      #  mess = await message.reply_text("**Bypassing...⏳**",quote=True)
-        await mess.edit_text(f"**Bypassed URL** : {short_link} \n\n ©cc: {message.from_user.mention}",disable_web_page_preview=True)
-     except Exception as e:
-        await mess.edit_text(f"**Error** : {e}")
-  elif 'hubdrive.cc' in link:
-     try:
-        short_link = await hubdrive_bypass(link)
-     #   mess = await message.reply_text("**Bypassing...⏳**",quote=True)
-        await mess.edit_text(f"**Bypassed URL** : {short_link} \n\n ©cc: {message.from_user.mention}",disable_web_page_preview=True)
-
 # GpLinksOld
 async def gplinks_bypass1(url):
     client = cloudscraper.create_scraper(allow_brotli=False)
@@ -200,25 +180,6 @@ async def gplinks_bypass1(url):
         return res.json()['url'].replace('\/','/')
     except: 
         return "An Error Occured "
-
-
-
-async def adfly(url):
-    client = cloudscraper.create_scraper(allow_brotli=False)
-    res = client.get(url).text
-    out = {'error': False, 'src_url': url}
-    try:
-        ysmm = re.findall("ysmm\s+=\s+['|\"](.*?)['|\"]", res)[0]
-    except:
-        out['error'] = True
-        return out
-    url = decrypt_url(ysmm)
-    if re.search(r'go\.php\?u\=', url):
-        url = b64decode(re.sub(r'(.*?)u=', '', url)).decode()
-    elif '&dest=' in url:
-        url = unquote(re.sub(r'(.*?)dest=', '', url))
-    out['bypassed_url'] = url
-    return out
 # -------------------------------------------
 
 @bot.on_callback_query()
